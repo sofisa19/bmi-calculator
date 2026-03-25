@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Button, Pressable, Text, View } from "react-native";
 import Modal from "react-native-modal";
+import { storage } from "../utils/storage";
 
 type Gender = "Male" | "Female" | "Prefer not to say";
 
@@ -18,6 +19,17 @@ const YELLOW = "#ca8a04";
 const GREEN = "#15803d";
 
 type BmiInterpretation = { label: string; color: string };
+
+export type HistoryData = {
+  username: string;
+  age: string;
+  gender: Gender;
+  weight: number;
+  height: number;
+  bmi: number;
+  result: string;
+  time: number;
+};
 
 const getBmiInterpretation = (bmi: number): BmiInterpretation => {
   if (bmi < 16) return { label: "Severe underweight", color: RED };
@@ -49,10 +61,18 @@ const getKgForNormal = (
   return "You're within the normal weight range";
 };
 
+const saveDataToHistory = (data: HistoryData) => {
+  const history: HistoryData[] = JSON.parse(
+    storage.getString("history") ?? "[]",
+  );
+  storage.set("history", JSON.stringify([...history, data]));
+  // alert - save dto history
+};
+
 const BmiCalculatorPage = () => {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
-  const [gender, setGender] = useState<Gender>();
+  const [gender, setGender] = useState<Gender>("Prefer not to say");
 
   const [height, setHeight] = useState(170);
   const [weight, setWeight] = useState(70);
@@ -64,7 +84,23 @@ const BmiCalculatorPage = () => {
   const pointerPercent = ((bmiClamped - BMI_MIN) / (BMI_MAX - BMI_MIN)) * 100;
   const interpretation = getBmiInterpretation(bmi);
 
-  const calculateBMI = () => {};
+  const calculateBMI = () => {
+    if (username.trim() !== "" && age.trim() !== "") {
+      const data: HistoryData = {
+        username,
+        age,
+        gender,
+        height,
+        weight,
+        bmi,
+        result: interpretation.label,
+        time: new Date().getTime(),
+      };
+      saveDataToHistory(data);
+    }
+
+    setOpen(true);
+  };
   return (
     <View>
       <Card>
@@ -210,7 +246,7 @@ const BmiCalculatorPage = () => {
         </View>
       </Card>
       <Pressable
-        onPress={() => setOpen(true)}
+        onPress={() => calculateBMI()}
         className="flex-row justify-center items-center py-4 px-6 rounded-xl active:opacity-90 mt-4 mx-4"
         style={{ backgroundColor: "#208AEF" }}
       >
