@@ -1,58 +1,108 @@
-# Welcome to your Expo app 👋
+# ⚖️ Universal BMI Calculator & Tracker
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern, fast, and feature-rich Body Mass Index (BMI) calculator and history tracker built for mobile (Android & iOS) and web. Developed with **Expo (SDK 55)**, **React Native**, **NativeWind (Tailwind CSS v4)**, and **MMKV Storage**.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Features
 
-   ```bash
-   npm install
-   ```
+- **Dynamic Inputs:** Easily input your height and weight using smooth, interactive slider controls.
+- **Gender Selection:** Custom radio buttons to select Male, Female, or Prefer not to say.
+- **Interactive Results Modal:**
+  - Real-time BMI value calculation.
+  - A color-coded visual indicator gauge (representing Severe Underweight to Obese Class III).
+  - Accurate medical classification labels.
+  - **Weight Goals Guidance:** Tells you exactly how many kilograms you need to lose or gain to reach a healthy weight.
+- **History Tracking & Management:**
+  - Save calculation history automatically (username and age required).
+  - Dedicated History page showing height, weight, exact BMI, classification, gender, and full timestamp.
+  - Fast delete functionality to clear individual history records.
+- **Ultra-Fast Performance:** Powered by **MMKV**, the fastest key-value local storage framework for React Native.
+- **Modern UI/UX:** Sleek card layouts, floating labels, vibrant status colors, and smooth modal swipe interactions.
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🛠️ Tech Stack & Key Libraries
 
-In the output, you'll find options to open the app in a
+- **Core Framework:** [Expo (SDK 55)](https://expo.dev) & React Native
+- **Routing & Navigation:** [Expo Router](https://docs.expo.dev/router/introduction) (File-based tab routing)
+- **Styling:** [NativeWind v4](https://www.nativewind.dev/) (Tailwind CSS integration for React Native)
+- **Local Storage:** [React Native MMKV](https://github.com/mrousavy/react-native-mmkv) (High-performance key-value storage)
+- **Interactive Components:** `react-native-modal`, `@react-native-community/slider`
+- **Animations:** `react-native-reanimated`
+- **Icons:** `@expo/vector-icons` (Ionicons & AntDesign)
+- **Language:** TypeScript
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📂 Project Structure
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```text
+bmi-calculator/
+├── assets/                 # App assets (icons, splash screen)
+├── src/
+│   ├── app/                # Expo Router App Entry
+│   │   ├── (tabs)/         # Tab Navigation
+│   │   │   ├── _layout.tsx # Tabs Layout & Header Styling
+│   │   │   ├── history.tsx # History Log Screen
+│   │   │   └── index.tsx   # Main BMI Calculator Screen
+│   │   ├── utils/          # Utility scripts
+│   │   │   └── storage.ts  # MMKV storage initialization
+│   │   ├── _layout.tsx     # Root Stack Layout
+│   │   └── global.css      # TailwindCSS Global styles
+│   └── components/         # Reusable UI Components
+│       ├── Card.tsx               # Content Wrapper Card
+│       ├── FloatingLabelInput.tsx # Custom TextInput with animated floating labels
+│       ├── HistoryComponent.tsx   # BMI history record card
+│       ├── RadioInput.tsx         # Gender selection radio input
+│       └── TextInput.tsx          # Standard text input wrapper
+├── tailwind.config.js      # Tailwind configuration
+├── tsconfig.json           # TypeScript configuration
+└── package.json            # Scripts and dependency versions
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-### Other setup steps
+## 📥 Getting Started
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Follow these steps to run the application locally in development mode:
 
-## Learn more
+### 1. Prerequisites
 
-To learn more about developing your project with Expo, look at the following resources:
+Make sure you have Node.js and the Expo CLI tools installed. If you plan to test on physical devices, download the **Expo Go** app from the Google Play Store or Apple App Store.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 2. Install Dependencies
 
-## Join the community
+Clone this repository, navigate to the directory, and install the package dependencies:
 
-Join our community of developers creating universal apps.
+```bash
+npm install
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 3. Start the Development Server
 
-# bmi-calculator
+Start the local Expo development server:
+
+```bash
+npx expo start
+```
+
+### 4. Run on Devices
+
+Use the commands printed in your terminal or press the keys:
+
+- **`a`** to run on an Android emulator (requires Android Studio).
+- **`i`** to run on an iOS simulator (requires macOS & Xcode).
+- **`w`** to run on a web browser.
+- **QR Code:** Scan the QR code in the terminal using the Expo Go app or iOS Camera to open the app on your physical mobile device.
+
+---
+
+## 🧪 Development Scripts
+
+You can also use the following commands configured in `package.json`:
+
+- **Run Android Development Build:** `npm run android`
+- **Run iOS Development Build:** `npm run ios`
+- **Start Web Server:** `npm run web`
+- **Lint Code:** `npm run lint`
